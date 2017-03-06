@@ -7,7 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Grid   Name="MainGrid" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" VerticalAlignment="Center" HorizontalAlignment="Center" Height="640" Width="396" Margin="-36,0,0,0">
+    <Grid   Name="MainGrid" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" VerticalAlignment="Center" HorizontalAlignment="Center" >
 
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup>
@@ -23,7 +23,7 @@
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
                         <Setter Target="purchaseAmountStackPanel.Orientation" Value="Vertical"/>
-                       
+
                         <Setter Target="img.Opacity" Value="0"/>
                     </VisualState.Setters>
 
@@ -41,38 +41,45 @@
         </Grid.RowDefinitions>
 
 
-        <TextBlock x:Name="AppTitle" Grid.Row="0" VerticalAlignment="Center" TextWrapping="Wrap" Text="Tax Calculator"  FontSize="23" TextAlignment="Center" />
-        <TextBlock x:Name="AppMessage" VerticalAlignment="Center"  TextWrapping="Wrap" Text="Enter Purchase Price"  FontSize="19" TextAlignment="Center"   Grid.RowSpan="2"/>
+        <TextBlock x:Name="AppTitle" Grid.Row="0" VerticalAlignment="Center" TextWrapping="Wrap" Text="Tax Calculator"  FontSize="20" TextAlignment="Center"  />
+        <TextBlock x:Name="AppMessage" VerticalAlignment="Center"  TextWrapping="Wrap" Text="Enter Purchase Price"  FontSize="19" TextAlignment="Center"  Grid.Row="1"/>
 
         <StackPanel Name="mainStackPanel" Margin="20,0,20,0" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.Row="2">
 
-            <StackPanel Name="purchaseAmountStackPanel" Orientation="Horizontal">
+            <StackPanel Name="purchaseAmountStackPanel" Orientation="Horizontal" HorizontalAlignment="Center">
                 <TextBlock x:Name="PurchasePriceTitle" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Purchase Price:"   Width="135" Height="32" FontSize="17"/>
-                <TextBox x:Name="Input" HorizontalAlignment="Right"  VerticalAlignment="Top" TextWrapping="Wrap" Text="" TabIndex="0" TextChanged="textBox_TextChanged_1" InputScope="CurrencyAmount" GotFocus="inputGotfocus" LostFocus="inputLostFocus"/>
+                <TextBox x:Name="Input" HorizontalAlignment="Right"  VerticalAlignment="Top" TextWrapping="Wrap" Text="$0.00" TabIndex="2" TextChanged="textBox_TextChanged_1" InputScope="CurrencyAmount" GotFocus="inputGotfocus" LostFocus="inputLostFocus" ToolTipService.ToolTip="Enter the cost of your purchase Here:       Maximum 11 digits allowed!" MaxLength="11" Loaded="appLoaded"/>
             </StackPanel>
 
-            <TextBlock Name="tatType" HorizontalAlignment="Left" Text="Tax Type:" VerticalAlignment="Top" Margin="0,20,0,0"></TextBlock>
-            <RadioButton GroupName="taxrates"  Tag="0.05" Click="TaxRaterb_Click" x:Name="GSTrb" Content="GST 5%" HorizontalAlignment="Left"  VerticalAlignment="Top"/>
-            <RadioButton  GroupName="taxrates" Tag="0.08" Click="TaxRaterb_Click" x:Name="PSTrb" Content="PST 8%" HorizontalAlignment="Left" VerticalAlignment="Top" HorizontalContentAlignment="Left" Width="120" />
-            <RadioButton GroupName="taxrates"  Tag="0.13" IsChecked="True" Click="TaxRaterb_Click"  x:Name="HSTrn" Content="HST 13%" HorizontalAlignment="Left"  VerticalAlignment="Top"/>
 
-            <TextBlock x:Name="textBlock1" HorizontalAlignment="Left"  Margin="0,20,0,0" TextWrapping="Wrap" VerticalAlignment="Top">
+            <StackPanel Width="198" HorizontalAlignment="Left">
+                <TextBlock Name="tatType" HorizontalAlignment="Left" Text="Tax Type:" VerticalAlignment="Top" Margin="0,20,0,0"></TextBlock>
+                <RadioButton GroupName="taxrates"  Tag="0.05" Click="TaxRaterb_Click" x:Name="GSTrb" Content="GST 5%" HorizontalAlignment="Left"  VerticalAlignment="Top" ToolTipService.ToolTip="Select if only paying the Goods and Services Tax"/>
+                <RadioButton  GroupName="taxrates" Tag="0.08" Click="TaxRaterb_Click" x:Name="PSTrb" Content="PST 8%" HorizontalAlignment="Left" VerticalAlignment="Top" HorizontalContentAlignment="Left" Width="120" ToolTipService.ToolTip="Select only if paying Provincial Sales Tax" />
+                <RadioButton GroupName="taxrates"  Tag="0.13" IsChecked="True" Click="TaxRaterb_Click"  x:Name="HSTrn" Content="HST 13%" HorizontalAlignment="Left"  VerticalAlignment="Top" ToolTipService.ToolTip="Select if paying Harmonized Sales Tax which is both Provinical Sales Tax and Goods And Service Tax combined"/>
+
+                <TextBlock x:Name="textBlock1" HorizontalAlignment="Left"  Margin="0,20,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="22">
             <Run Text="Tax Amout:"/>
             <LineBreak/>
             <Run/>
-            </TextBlock>
-            <TextBlock x:Name="TaxAmount" HorizontalAlignment="Left"  TextWrapping="Wrap" Foreground="red" Text="$0.00" VerticalAlignment="Top" />
+                </TextBlock>
+                <TextBlock x:Name="TaxAmount" HorizontalAlignment="Left"  TextWrapping="Wrap" Foreground="red" Text="$0.00" VerticalAlignment="Top" ToolTipService.ToolTip="The amount of tax of your purchase" />
 
-            <TextBlock x:Name="TotalAmountTitle" HorizontalAlignment="Left" Margin="0,20,0,0" TextWrapping="Wrap" VerticalAlignment="Top"  Height="22">
+                <TextBlock x:Name="TotalAmountTitle" HorizontalAlignment="Left" Margin="0,20,0,0" TextWrapping="Wrap" VerticalAlignment="Top"  Height="22">
             <Run Text="Total Amout:"/>
             <LineBreak/>
             <Run/>
-            </TextBlock>
+                </TextBlock>
 
-            <TextBlock x:Name="TotalAmount" HorizontalAlignment="Left"  TextWrapping="Wrap" Foreground="red" Text="$0.00" VerticalAlignment="Top" />
-            <StackPanel Name="img" Opacity="1">
+                <TextBlock x:Name="TotalAmount" HorizontalAlignment="Left"  TextWrapping="Wrap" Foreground="red" Text="$0.00" VerticalAlignment="Top" ToolTipService.ToolTip="the total cost of your purchase including Tax" />
+            </StackPanel>
+
+                  
+                <StackPanel  HorizontalAlignment="Center"  Width="100" Name="img" Opacity="1">
                 <Image x:Name="image" Height="100" Width="100" HorizontalAlignment="Center" Source="Assets/back_image.png"/>
             </StackPanel>
+         
+
 
         </StackPanel>
 

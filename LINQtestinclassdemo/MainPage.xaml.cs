@@ -28,12 +28,17 @@ namespace LINQtestinclassdemo
         //set tagText default 13 for the  HST which is selected on start
         string tagText = "0.13";
         string inputValue = string.Empty;
+        
         public MainPage()
         {
             this.InitializeComponent();
+            
             //initialize an object of Tax class 
             tax = new Tax();
-        }
+            //set default input value on app start
+            tax.sentValue = "0";
+            
+            }
 
       
 
@@ -48,6 +53,7 @@ namespace LINQtestinclassdemo
                  this.tagText = rb.Tag.ToString();
                 Debug.WriteLine(tax.sentValue);
                 DoCalculation(tax.sentValue, tagText);
+                
  
             }
         }
@@ -61,6 +67,7 @@ namespace LINQtestinclassdemo
 
         private void inputGotfocus(object sender, RoutedEventArgs e)
         {
+            
             //when The input TB got focus 
           Input.Text = string.Empty;
         }
@@ -78,6 +85,11 @@ namespace LINQtestinclassdemo
         {
             Input.Text = tax.purchasePrice;
             
+        }
+
+        private void appLoaded(object sender, RoutedEventArgs e)
+        {
+            Input.Focus(FocusState.Keyboard);
         }
     }
 }
